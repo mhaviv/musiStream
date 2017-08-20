@@ -1,0 +1,110 @@
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+
+#background {
+	background: url("images/juke-background-2.jpg");
+	position: absolute;
+    z-index: -5;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	opacity: .8;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	position: fixed;
+}
+
+#button-pos {
+	text-align: center;
+	display: inline-block;
+	margin-left: 16em;
+	margin-top: 0.5em;
+	margin-right: 17em;
+	padding: 0 14em;
+
+}
+
+
+/*formatting  for myAudio control buttons*/
+.buttons {
+	font-size: 2.3em;
+	margin-left: 1.5em;
+	margin-right: 0.1em;
+	margin-top: 0.9em;
+	border-style: solid;
+	color: white;
+	border-width: 1em;
+	border-radius: 50%
+}
+
+
+/*format for playlist of songs*/
+#list_songs {
+	border-style: double;
+	border-width: 0.2em;
+	background-color: beige;
+	text-align: center;
+	/*height: 11em;*/
+	width: 30em;
+	padding-top: 1em;
+	display: block;
+	margin: auto;
+	font-size: 2em;	
+	
+}
+
+.song-display {
+	margin-bottom: 1em;
+	text-shadow: 0 1px 0 #ccc,
+	             0 2px 0 #c9c9c9,
+	             0 3px 0 #bbb,
+	             0 4px 0 #b9b9b9,
+	             0 5px 0 #aaa,
+	             0 6px 1px rgba(0,0,0,.1),
+	             0 0 5px rgba(0,0,0,.1),
+	             0 1px 3px rgba(0,0,0,.3),
+	             0 3px 5px rgba(0,0,0,.2),
+	             0 5px 10px rgba(0,0,0,.25),
+	             0 10px 10px rgba(0,0,0,.2),
+	             0 20px 20px rgba(0,0,0,.15);
+}
+
+a {
+	text-decoration: none;
+	color: teal;
+
+}
+
+#urlPosition {
+	text-align: center;
+	margin-bottom: 3em;
+}
+
+.sizing {
+	font-size: 2em;
+	margin: 2em 0;
+}
+
+#loadUp {
+	font-size: 2.5em;
+	color: #5ECDF2;
+	background-color: beige;
+	font-weight: bold;
+	text-align: center;
+	line-height: 200%;
+	width: 28em;
+	margin-left: 4em;
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+
+.newLine {
+	display: block;
+	font-style: italic;
+}
+
+

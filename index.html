@@ -1,0 +1,50 @@
+<html class="html">
+ <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet" href="style.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+<body>
+<div id="background"></div>
+
+<audio id="myAudio">
+     <source src="" type="audio/mp4">
+</audio>
+
+<div id="list_songs">
+
+</div>
+
+<!-- <div>
+    <progress id="seekbar" value="0" max="1" ></progress>
+</div> -->
+
+
+<div id="button-pos">
+    <button class="buttons" id="prevBtn" onclick="jukeBox.loadPrev()">Prev</button>
+    <button class="buttons" id="playBtn" onclick="jukeBox.playIt()">Play</button>
+    <button class="buttons" id="stopBtn" onclick="jukeBox.stopIt()">Stop</button>
+    <button class="buttons" id="nextBtn" onclick="jukeBox.loadNext()">Next</button>
+</div>
+
+
+<div id="urlPosition">
+    <p id="loadUp">
+        Load up Stam.m4a as example for loading a song locally:
+        <span class="newLine">Name: Stam by Static &amp; Ben El Tavori</span>  
+        <span class="newLine">Title: stam.m4a</span>
+        <span class="newLine">Url: audio/stam.m4a</span>
+    </p>
+    <input id="addName" class="sizing" placeholder="Input Name"></input>
+    <input id="addTitle" class="sizing" placeholder="Input Title"></input>
+    <input id="addSong" class="sizing" placeholder="Input Url"></input>
+    <button id="submitBtn" class="sizing" onclick="jukeBox.addSong()">Add Song</button>
+</div>
+
+
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
