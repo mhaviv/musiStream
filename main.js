@@ -20,6 +20,7 @@ SC.initialize({
 
 // 
 function createTracks(tracks) {
+	$('#image-container').children().remove()
     console.log(tracks);
     for (let i = 0; i < tracks.length; i++) {
         let img = document.createElement('img');
@@ -54,7 +55,7 @@ function createTracks(tracks) {
 // This function will diplay song in song container
 function displaySong(song){
 	let chosenImage = song.artwork_url || song.user.avatar_url; 
-	$('#song-container #songTitle').text(song.title);
+	$('#song-container #songTitle').html("<a href=" + song.permalink_url + " target='_blank'>"+ song.title + "</a>");
 	$('#song-container #artistLink').html("<a href=" + song.user.permalink_url + " target='_blank'>"+ song.user.permalink + "</a>");
 	$('#song-container #songImage').attr("src", chosenImage);
 	$('#song-container #songGenre').text(song.genre);
