@@ -1,135 +1,117 @@
-$(document).ready(function(){
-	function Jukebox(){
+// MAKING SOUNDCLOUD JUKEBOX
+// 
+// get results from search bar
+// match input from search with results from api 
+// print results to display songs 
+// use API Key provided 
+// has to play 
+// has to stop 
+// has to go next 
+// has to go previous	
 
-		let currentSong = "";
-		let tracks = [];
-		let trackName = [];
-		let trackNum = 0;
-		const audio = $("#myAudio")[0];
+let imageContainer = $('#image-container');
+let scPlayer
+let currentlyPlaying
 
-		//Adds a song to the Jukebox object
-		this.addSongToTrack = function(song){
-			tracks.push(song);
-			return tracks;
-		};
-
-		// displaying the songs in the array in divs
-		this.displaySongs = function(){
-			$('#list_songs').html('')
-			for (i in tracks) {
-				$("#list_songs").append("<div class='song-display'><a href='#' class='songName' data-id='" + i + "' >" + tracks[i].songName + "</a></div>")
-			}
-			// $('#list_songs').html(this.song_names.join(" "));
-		};
-		
-		this.playIt = function() {
-	       audio.play();
-	    };
-
-	    this.stopIt = function() {
-	      audio.pause();
-	    };
-
-	
-
-
-    // $('#myAudio').on('timeupdate', function() {
-    // $('#seekbar').attr("value", this.currentTime / this.duration);
-
-	    this.loadInSong = function(selectedSong){
-	    	let player = $('#myAudio');
-	    	// clearing audio source and replacing it with empty string
-	    	player.html("");
-	    	trackNum = selectedSong;
-	    	// finding the location of the song
-	  		let songSrc = tracks[selectedSong].location;
-	  		// add songSrc to player
-	    	player.append('<source src="' + songSrc + '" type="audio/mp4">"');
-	    	player[0].load();
-	    	player[0].play();
-	    	return trackNum;
-
-	    };
-
-
-	    this.loadNext = function(){
-	    	audio.pause();
-	    	if (trackNum === tracks.length - 1){
-	    		trackNum = 0;
-	    	} else {
-	    		trackNum = trackNum + 1;
-	    	}
-	    	
-	    	this.loadInSong(trackNum);
-
-
-	    	return trackNum;
-	    }
-
-
-
-	     this.loadPrev = function(){
-	    	audio.pause();
-	    	if (trackNum === 0){
-	    		trackNum = tracks.length -1;
-	    	} else {
-	    		trackNum = trackNum - 1;
-	    	}
-	 
-	    	this.loadInSong(trackNum);
-
-	    	return trackNum;
-	    }
-
-
-
-	    this.addSong = function() {
-	       let location = $("#addSong").val();
-	       let songName =  $("#addName").val();
-	       let songTitle =  $("#addTitle").val();
-	       let newSong = new Song(songName, songTitle, location)
-	       tracks.push(newSong);
-	       this.displaySongs();
-	       // $("#list_songs").append("<div class='song-display'><a href='#' class='songName' data-id='" + tracks.length + "' >" + songName + "</a></div>")
-     		
-     	}
-
-
-	};
-
-	function Song(songName, title, location){
-		this.songName = songName
-		this.title = title;
-		this.location = location;
-	};
-
-	let sky = new Song("Sky by Alan Walker & Alex Skrindo", "sky.m4a", "audio/sky.m4a");
-	let moreThanYouKnow = new Song("More Than You Know by Axwell /\ Ingrosso", "More-Than-You-Know.m4a", "audio/More-Than-You-Know.m4a");
-	let castleOfGlass = new Song("Castle of Glass by Linkin Park", "CASTLE_OF_GLASS.m4a", "audio/CASTLE_OF_GLASS.m4a");
-	let greatSpirit = new Song("Great Spirit (feat. Hilight Tribe) by Armin Van Buuren & Vini Vici", "Great-Spirit.m4a", "audio/Great-Spirit.m4a");
-	let burnItDown = new Song("Burn it Down by Linkin Park", "BURN-IT-DOWN.m4a", "audio/BURN-IT-DOWN.m4a");
-
-	jukeBox = new Jukebox();
-
-		jukeBox.addSongToTrack(sky);
-		jukeBox.addSongToTrack(moreThanYouKnow);
-		jukeBox.addSongToTrack(castleOfGlass);
-		jukeBox.addSongToTrack(greatSpirit);
-		jukeBox.addSongToTrack(burnItDown);
-
-
-	//make a function to display the songs
-	jukeBox.displaySongs();
-
-	//play the first song on load
-	let songList = $('#list_songs');
-	jukeBox.loadInSong(0);
-
-	//load in selected song & play it on click
-	$(songList).on('click', '.songName',function(){
-		let selectedSong = this.dataset.id;
-		console.log(selectedSong);
-		jukeBox.loadInSong(selectedSong);
-	});
-
+// Intializing the Sound Cloud API
+SC.initialize({
+    client_id: 'fd4e76fc67798bfa742089ed619084a6'
 });
+
+// 
+function createTracks(tracks) {
+    console.log(tracks);
+    for (let i = 0; i < tracks.length; i++) {
+        let img = document.createElement('img');
+        let a = document.createElement('a');
+        img.className = 'thumb';
+
+        if (tracks[i].artwork_url) {
+            img.setAttribute('src', tracks[i].artwork_url);
+        } else {
+            img.setAttribute('src', tracks[i].user.avatar_url)
+        }
+
+        img.setAttribute('title', tracks[i].title);
+        img.setAttribute('width', 70);
+        img.setAttribute('height', 70);
+        img.trackInfo = tracks[i];
+        a.setAttribute('href', '#');
+        a.append(img);
+        imageContainer.append(a);
+    }
+
+    // Animation for the song choices
+    TweenMax.staggerFrom('#image-container img', 1, {
+        scale: 0,
+        delay: 1.5,
+        borderRadius: '50%',
+        transformOrigin: '50% 50%'
+    }, 0.1)
+}
+
+
+// This function will diplay song in song container
+function displaySong(song){
+	let chosenImage = song.artwork_url || song.user.avatar_url; 
+	$('#song-container #songTitle').text(song.title);
+	$('#song-container #artistLink').html("<a href=" + song.user.permalink_url + " target='_blank'>"+ song.user.permalink + "</a>");
+	$('#song-container #songImage').attr("src", chosenImage);
+	$('#song-container #songGenre').text(song.genre);
+	$('#song-container #songDescription').text(song.description);
+}
+
+
+function streamTrack(e, trackInfo) {
+    SC.stream('/tracks/' + trackInfo.id).then(function(player) {
+    	currentlyPlaying = trackInfo
+        player.play();
+        scPlayer = player // made variable global
+        displaySong(trackInfo)
+    })
+}
+
+
+function getTracks(query) {
+    // if the query is undefined, get out of function
+    if (!query) {
+        return;
+    }
+    // Get the first 10 tracks and then set them for display and stream
+    SC.get('/tracks', {
+        q: query,
+        limit: 10
+    }).then(function(tracks) {
+        createTracks(tracks);
+        streamTrack(null, tracks[0]); // streams the first track 
+    })
+};
+
+
+
+// When searching = return/enter key --> get tracks that match query
+document.body.onkeypress = function(e) {
+
+    if (e.charCode === 13) {
+        getTracks($('#search-field').val())
+    }
+}
+
+
+
+// if you click the thumbnail, it will play the song you clicked 
+document.body.addEventListener('click', function(e) {
+    let target = e.target;
+    if (target.className === 'thumb') {
+        streamTrack(null, target.trackInfo);
+    }
+})
+
+
+$('#play').click(function(){
+	scPlayer.play()
+})
+
+$('#pause').click(function(){
+	scPlayer.pause()
+})

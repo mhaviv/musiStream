@@ -8,43 +8,33 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
-<div id="background"></div>
+    <div class="container">
+        <div id="search-box">
+            <input id="search-field" autocomplete type="search" placeholder="Type Here..." value="">
+        </div>
+        <div id="image-container"></div>
+        <div id="buttons">
+            <button id="prev">Previous</button>
+            <button id="play">Play</button>
+            <button id="pause">Pause</button>
+            <button id="next">Next</button>
+        </div>
+        <div id="song-container">
+            <a href="#" title="" alt="" target="_blank"></a>
+            <h2 id="songTitle"></h2>
+            <h3 id="artistLink"></h3>
+            <img id="songImage" src="">
+            <h4 id="songGenre"></h4>
+            <p id="songDescription"></p>
+            
+        </div>
+    </div>
 
-<audio id="myAudio">
-     <source src="" type="audio/mp4">
-</audio>
-
-<div id="list_songs">
-
-</div>
-
-<!-- <div>
-    <progress id="seekbar" value="0" max="1" ></progress>
-</div> -->
-
-
-<div id="button-pos">
-    <button class="buttons" id="prevBtn" onclick="jukeBox.loadPrev()">Prev</button>
-    <button class="buttons" id="playBtn" onclick="jukeBox.playIt()">Play</button>
-    <button class="buttons" id="stopBtn" onclick="jukeBox.stopIt()">Stop</button>
-    <button class="buttons" id="nextBtn" onclick="jukeBox.loadNext()">Next</button>
-</div>
-
-
-<div id="urlPosition">
-    <p id="loadUp">
-        Load up Stam.m4a as example for loading a song locally:
-        <span class="newLine">Name: Stam by Static &amp; Ben El Tavori</span>  
-        <span class="newLine">Title: stam.m4a</span>
-        <span class="newLine">Url: audio/stam.m4a</span>
-    </p>
-    <input id="addName" class="sizing" placeholder="Input Name"></input>
-    <input id="addTitle" class="sizing" placeholder="Input Title"></input>
-    <input id="addSong" class="sizing" placeholder="Input Url"></input>
-    <button id="submitBtn" class="sizing" onclick="jukeBox.addSong()">Add Song</button>
-</div>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/utils/Draggable.min.js"></script>
+<!-- <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin.js?r=12"></script> -->
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/AnticipateEase.min.js"></script>
+<script src="https://connect.soundcloud.com/sdk/sdk-3.2.1.js"></script>
 <script type="text/javascript" src="main.js"></script>
 </body>
 </html>

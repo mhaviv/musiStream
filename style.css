@@ -24,8 +24,7 @@ body {
 	margin-left: 16em;
 	margin-top: 0.5em;
 	margin-right: 17em;
-	padding: 0 14em;
-
+	padding: 0 7em;
 }
 
 
@@ -107,4 +106,16 @@ a {
 	font-style: italic;
 }
 
+#spoti-size{
+	width: 3.5em;
+	height: 3.5em;
+}
+
+#nextBtn {
+	margin-bottom: 2em;
+}
+
+#addSong {
+	margin-top: 0;
+}
 
