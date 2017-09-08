@@ -1,40 +1,44 @@
 <html class="html">
- <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title></title>
-    <link rel="stylesheet" href="style.css"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <div id="search-box">
-            <input id="search-field" autocomplete type="search" placeholder="Type Here..." value="">
-        </div>
-        <div id="image-container"></div>
-        <div id="buttons">
-            <!-- <button id="prev">Previous</button> -->
-            <button id="play">Play</button>
-            <button id="pause">Pause</button>
-            <!-- <button id="next">Next</button> -->
-        </div>
-        <div id="song-container">
-            <a href="#" title="" alt="" target="_blank"></a>
-            <h2 id="songTitle"></h2>
-            <h3 id="artistLink"></h3>
-            <img id="songImage" src="">
-            <h4 id="songGenre"></h4>
-            <p id="songDescription"></p>
-            
-        </div>
-    </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/utils/Draggable.min.js"></script>
-<!-- <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin.js?r=12"></script> -->
-<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/AnticipateEase.min.js"></script>
-<script src="https://connect.soundcloud.com/sdk/sdk-3.2.1.js"></script>
-<script type="text/javascript" src="main.js"></script>
+<body>
+<div id="backgroundImg"></div>
+    <div class="container">
+            <div class="row">
+                <div class="form-control" id="search-box">
+                    <input class="col-lg-7" id="search-field" autocomplete type="search" placeholder="Type Here..." value="">
+                </div>
+            </div>
+            <div id="image-container"></div>
+            <div class="margin-space" id="buttons">
+                <button class="btn btn-primary btn-lg" id="play">Play</button>
+                <button class="btn btn-danger btn-lg" id="pause">Pause</button>
+            </div>
+            <div id="song-container">
+                <a class="songInfoSpace" href="#" title="" alt="" target="_blank"></a>
+                <h2 class="songInfoSpace" id="songTitle"></h2>
+                <h3 class="songInfoSpace" id="artistLink"></h3>
+                <img class="songInfoSpace" id="songImage" src="">
+                <h4 class="songInfoSpace" id="songGenre"></h4>
+                <p class="songInfoSpace" id="songDescription"></p>
+            </div>
+        
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/utils/Draggable.min.js"></script>
+    <!-- <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin.js?r=12"></script> -->
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/AnticipateEase.min.js"></script>
+    <script src="https://connect.soundcloud.com/sdk/sdk-3.2.1.js"></script>
+    <script type="text/javascript" src="main.js"></script>
 </body>
+
 </html>

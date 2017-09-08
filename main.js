@@ -34,8 +34,8 @@ function createTracks(tracks) {
         }
 
         img.setAttribute('title', tracks[i].title);
-        img.setAttribute('width', 70);
-        img.setAttribute('height', 70);
+        img.setAttribute('width', 170);
+        img.setAttribute('height', 170);
         img.trackInfo = tracks[i];
         a.setAttribute('href', '#');
         a.append(img);
