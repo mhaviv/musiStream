@@ -1,27 +1,31 @@
 // MAKING SOUNDCLOUD JUKEBOX
-// 
+//
 // get results from search bar
-// match input from search with results from api 
-// print results to display songs 
-// use API Key provided 
-// has to play 
-// has to stop 
-// has to go next 
-// has to go previous	
+// match input from search with results from api
+// print results to display songs
+// use API Key provided
+// has to play
+// has to stop
+// has to go next
+// has to go previous
 
-let imageContainer = $('#image-container');
+let imageContainer = document.getElementById('image-container');
 let scPlayer
-let currentlyPlaying
 
 // Intializing the Sound Cloud API
 SC.initialize({
     client_id: 'fd4e76fc67798bfa742089ed619084a6'
 });
 
-// 
-function createTracks(tracks) {
-	$('#image-container').children().remove()
-    console.log(tracks);
+function Jukebox(tracks, currentSong){
+    this.tracks = [];
+    this.currentSong = 0;
+}
+
+Jukebox.prototype.createTracks = function(tracks) {
+    imageContainer.children().remove() //remove all from container
+    console.log('tracks here!!', tracks);
+    //  Makes thumbnails of img and anchor tag
     for (let i = 0; i < tracks.length; i++) {
         let img = document.createElement('img');
         let a = document.createElement('a');
@@ -53,19 +57,29 @@ function createTracks(tracks) {
 
 
 // This function will diplay song in song container
-function displaySong(song){
-	let chosenImage = song.artwork_url || song.user.avatar_url; 
-	$('#song-container #songTitle').html("<a href=" + song.permalink_url + " target='_blank'>"+ song.title + "</a>");
-	$('#song-container #artistLink').html("<a href=" + song.user.permalink_url + " target='_blank'>"+ song.user.permalink + "</a>");
-	$('#song-container #songImage').attr("src", chosenImage);
-	$('#song-container #songGenre').text(song.genre);
-	$('#song-container #songDescription').text(song.description);
+Jukebox.prototype.displaySong = function(song) {
+    let chosenImage = song.artwork_url || song.user.avatar_url;
+    $('#song-container #songTitle').html(
+        "<a href=" + song.permalink_url + " target='_blank'>"+ song.title + "</a>"
+    );
+    $('#song-container #artistLink').html(
+        "<a href=" + song.user.permalink_url + " target='_blank'>"+ song.user.permalink + "</a>"
+    );
+    $('#song-container #songImage').attr(
+        "src", chosenImage
+    );
+    $('#song-container #songGenre').text(
+        song.genre
+    );
+    $('#song-container #songDescription').text(
+        song.description
+    );
 }
 
 
-function streamTrack(e, trackInfo) {
+Jukebox.prototype.streamTrack = function(e, trackInfo) {
     SC.stream('/tracks/' + trackInfo.id).then(function(player) {
-    	currentlyPlaying = trackInfo
+        this.currentSong = trackInfo
         player.play();
         scPlayer = player // made variable global
         displaySong(trackInfo)
@@ -73,7 +87,7 @@ function streamTrack(e, trackInfo) {
 }
 
 
-function getTracks(query) {
+Jukebox.prototype.getTracks = function(query) {
     // if the query is undefined, get out of function
     if (!query) {
         return;
@@ -82,10 +96,15 @@ function getTracks(query) {
     SC.get('/tracks', {
         q: query,
         limit: 10
-    }).then(function(tracks) {
-        createTracks(tracks);
-        streamTrack(null, tracks[0]); // streams the first track 
-    })
+    }).then(function(response) {
+        console.log('responding!!', response);
+        // console.log('this is tracks!!!', this.tracks)
+        this.tracks.push(...response);
+        // console.log('this is tracks', this.tracks);
+        tracks.createTracks(tracks);
+        tracks.streamTrack(null, tracks[0]); // streams the first track
+    });
+    // console.log(response);
 };
 
 
@@ -93,26 +112,48 @@ function getTracks(query) {
 // When searching = return/enter key --> get tracks that match query
 document.body.onkeypress = function(e) {
 
+    var searchField = document.getElementById('search-field').value;
+    console.log(searchField)
+
     if (e.charCode === 13) {
-        getTracks($('#search-field').val())
+        // alert('hello!')
+        Jukebox.prototype.getTracks(searchField);
     }
 }
 
 
 
-// if you click the thumbnail, it will play the song you clicked 
+// if you click the thumbnail, it will play the song you clicked
 document.body.addEventListener('click', function(e) {
     let target = e.target;
     if (target.className === 'thumb') {
-        streamTrack(null, target.trackInfo);
+        Jukebox.prototype.streamTrack(null, target.trackInfo);
     }
 })
 
+// var jukePlay = document.getElementById('play');
+// var jukePause = document.getElementById('pause');
+// console.log(jukePlay)
 
-$('#play').click(function(){
-	scPlayer.play()
-})
+Jukebox.prototype.play = function() {
+    if(this.player) {
+        this.player.play();
+    } else {
+      Jukebox.getTracks().then((player) => {
+        this.player = player;
+        player.play();
+      });
+    }
+    Jukebox.displaySong();
+}
 
-$('#pause').click(function(){
-	scPlayer.pause()
-})
+Jukebox.prototype.pause = function() {
+    if(this.player) {
+      this.player.pause();
+      return true;
+    }
+    return false;
+}
+
+var jukebox = new Jukebox()
+

@@ -2,8 +2,8 @@ body {
 	font-family: 'Roboto', sans-serif;
 }
 
-#backgroundImg {
-	background-image: url(/images/stage-background.png);
+#bgImg {
+	background-image: url(images/stage-background.png);
 	position: absolute;
     z-index: -5;
     top: 0;
