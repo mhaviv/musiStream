@@ -9,7 +9,7 @@
 // has to go next
 // has to go previous
 
-let imageContainer = document.getElementById('image-container');
+let imageContainer = document.getElementById('image-container').children;
 let scPlayer
 
 // Intializing the Sound Cloud API
@@ -23,7 +23,9 @@ function Jukebox(tracks, currentSong){
 }
 
 Jukebox.prototype.createTracks = function(tracks) {
-    imageContainer.children().remove() //remove all from container
+    console.log('hey there!!!');
+    imageContainer.remove(); //remove all from container
+    console.log("hello!!");
     console.log('tracks here!!', tracks);
     //  Makes thumbnails of img and anchor tag
     for (let i = 0; i < tracks.length; i++) {
@@ -92,6 +94,7 @@ Jukebox.prototype.getTracks = function(query) {
     if (!query) {
         return;
     }
+    let self = this;
     // Get the first 10 tracks and then set them for display and stream
     SC.get('/tracks', {
         q: query,
@@ -99,10 +102,10 @@ Jukebox.prototype.getTracks = function(query) {
     }).then(function(response) {
         console.log('responding!!', response);
         // console.log('this is tracks!!!', this.tracks)
-        this.tracks.push(...response);
-        // console.log('this is tracks', this.tracks);
-        tracks.createTracks(tracks);
-        tracks.streamTrack(null, tracks[0]); // streams the first track
+        self.tracks = response;
+        console.log('this is self', self);
+        self.createTracks(self.tracks);
+        self.streamTrack(null, tracks[0]); // streams the first track
     });
     // console.log(response);
 };
