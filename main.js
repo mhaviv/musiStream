@@ -9,7 +9,7 @@
 // has to go next
 // has to go previous
 
-let imageContainer = document.getElementById('image-container').children;
+let imageContainer = document.getElementById('image-container');
 let scPlayer
 
 // Intializing the Sound Cloud API
@@ -23,21 +23,24 @@ function Jukebox(tracks, currentSong){
 }
 
 Jukebox.prototype.createTracks = function(tracks) {
-    console.log('hey there!!!');
-    imageContainer.remove(); //remove all from container
-    console.log("hello!!");
-    console.log('tracks here!!', tracks);
+    $('#image-container').children().remove() //remove all from container
+    var tracks = this.tracks
     //  Makes thumbnails of img and anchor tag
     for (let i = 0; i < tracks.length; i++) {
         let img = document.createElement('img');
         let a = document.createElement('a');
         img.className = 'thumb';
 
+        // console.log('hello for loop img!', img);
+        // console.log('hello for loop a!', a);
+
         if (tracks[i].artwork_url) {
             img.setAttribute('src', tracks[i].artwork_url);
         } else {
             img.setAttribute('src', tracks[i].user.avatar_url)
         }
+
+
 
         img.setAttribute('title', tracks[i].title);
         img.setAttribute('width', 170);
@@ -80,11 +83,12 @@ Jukebox.prototype.displaySong = function(song) {
 
 
 Jukebox.prototype.streamTrack = function(e, trackInfo) {
+    let self = this
     SC.stream('/tracks/' + trackInfo.id).then(function(player) {
-        this.currentSong = trackInfo
+        self.currentSong = trackInfo
         player.play();
         scPlayer = player // made variable global
-        displaySong(trackInfo)
+        Jukebox.prototype.displaySong(trackInfo)
     })
 }
 
@@ -94,7 +98,7 @@ Jukebox.prototype.getTracks = function(query) {
     if (!query) {
         return;
     }
-    let self = this;
+    let self = this; //promises lose context!!!
     // Get the first 10 tracks and then set them for display and stream
     SC.get('/tracks', {
         q: query,
@@ -103,9 +107,9 @@ Jukebox.prototype.getTracks = function(query) {
         console.log('responding!!', response);
         // console.log('this is tracks!!!', this.tracks)
         self.tracks = response;
-        console.log('this is self', self);
+        // console.log('this is self', self);
         self.createTracks(self.tracks);
-        self.streamTrack(null, tracks[0]); // streams the first track
+        self.streamTrack(null, self.tracks[0]); // streams the first track
     });
     // console.log(response);
 };
@@ -116,7 +120,7 @@ Jukebox.prototype.getTracks = function(query) {
 document.body.onkeypress = function(e) {
 
     var searchField = document.getElementById('search-field').value;
-    console.log(searchField)
+    // console.log(searchField)
 
     if (e.charCode === 13) {
         // alert('hello!')
@@ -130,7 +134,7 @@ document.body.onkeypress = function(e) {
 document.body.addEventListener('click', function(e) {
     let target = e.target;
     if (target.className === 'thumb') {
-        Jukebox.prototype.streamTrack(null, target.trackInfo);
+        Jukebox.prototype.streamTrack(null, e.target.trackInfo);
     }
 })
 
@@ -138,25 +142,16 @@ document.body.addEventListener('click', function(e) {
 // var jukePause = document.getElementById('pause');
 // console.log(jukePlay)
 
-Jukebox.prototype.play = function() {
-    if(this.player) {
-        this.player.play();
-    } else {
-      Jukebox.getTracks().then((player) => {
-        this.player = player;
-        player.play();
-      });
-    }
-    Jukebox.displaySong();
-}
+Jukebox.prototype.play = $('#play').click(function(){
+    scPlayer.play()
+    console.log('playing')
+})
 
-Jukebox.prototype.pause = function() {
-    if(this.player) {
-      this.player.pause();
-      return true;
-    }
-    return false;
-}
+Jukebox.prototype.pause = $('#pause').click(function(){
+        scPlayer.pause()
+        console.log('pausing')
+})
+
 
 var jukebox = new Jukebox()
 
