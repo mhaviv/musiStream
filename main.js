@@ -23,7 +23,7 @@ function Jukebox(tracks, currentSong){
 }
 
 Jukebox.prototype.createTracks = function(tracks) {
-    $('#image-container').children().remove() //remove all from container
+    imageContainer.innerHTML="" //remove all from container
     var tracks = this.tracks
     //  Makes thumbnails of img and anchor tag
     for (let i = 0; i < tracks.length; i++) {
@@ -48,7 +48,8 @@ Jukebox.prototype.createTracks = function(tracks) {
         img.trackInfo = tracks[i];
         a.setAttribute('href', '#');
         a.append(img);
-        imageContainer.append(a);
+        // imageContainer.append(a);
+        imageContainer.appendChild(a);
     }
 
     // Animation for the song choices
@@ -63,22 +64,13 @@ Jukebox.prototype.createTracks = function(tracks) {
 
 // This function will diplay song in song container
 Jukebox.prototype.displaySong = function(song) {
+
     let chosenImage = song.artwork_url || song.user.avatar_url;
-    $('#song-container #songTitle').html(
-        "<a href=" + song.permalink_url + " target='_blank'>"+ song.title + "</a>"
-    );
-    $('#song-container #artistLink').html(
-        "<a href=" + song.user.permalink_url + " target='_blank'>"+ song.user.permalink + "</a>"
-    );
-    $('#song-container #songImage').attr(
-        "src", chosenImage
-    );
-    $('#song-container #songGenre').text(
-        song.genre
-    );
-    $('#song-container #songDescription').text(
-        song.description
-    );
+    document.getElementById('songTitle').innerHTML="<a href=" + song.permalink_url + " target='_blank'>"+ song.title + "</a>"
+    document.getElementById('artistLink').innerHTML="<a href=" + song.user.permalink_url + " target='_blank'>"+ song.user.permalink + "</a>"
+    document.getElementById('songImage').innerHTML="src", chosenImage
+    document.getElementById('songGenre').innerHTML=song.genre
+    document.getElementById('songDescription').innerHTML=song.description
 }
 
 
@@ -142,12 +134,14 @@ document.body.addEventListener('click', function(e) {
 // var jukePause = document.getElementById('pause');
 // console.log(jukePlay)
 
-Jukebox.prototype.play = $('#play').click(function(){
+let playButton = document.getElementById('play')
+Jukebox.prototype.play = playButton.addEventListener('click', function(){
     scPlayer.play()
     console.log('playing')
 })
 
-Jukebox.prototype.pause = $('#pause').click(function(){
+let pauseButton = document.getElementById('pause')
+Jukebox.prototype.pause = pauseButton.addEventListener('click', function(){
         scPlayer.pause()
         console.log('pausing')
 })
