@@ -107,6 +107,7 @@ Jukebox.prototype.getTracks = function(query) {
 };
 
 
+var jukebox = new Jukebox()
 
 // When searching = return/enter key --> get tracks that match query
 document.body.onkeypress = function(e) {
@@ -116,7 +117,7 @@ document.body.onkeypress = function(e) {
 
     if (e.charCode === 13) {
         // alert('hello!')
-        Jukebox.prototype.getTracks(searchField);
+        jukebox.getTracks(searchField);
     }
 }
 
@@ -126,7 +127,7 @@ document.body.onkeypress = function(e) {
 document.body.addEventListener('click', function(e) {
     let target = e.target;
     if (target.className === 'thumb') {
-        Jukebox.prototype.streamTrack(null, e.target.trackInfo);
+        jukebox.streamTrack(null, e.target.trackInfo);
     }
 })
 
@@ -135,17 +136,16 @@ document.body.addEventListener('click', function(e) {
 // console.log(jukePlay)
 
 let playButton = document.getElementById('play')
-Jukebox.prototype.play = playButton.addEventListener('click', function(){
+jukebox.play = playButton.addEventListener('click', function(){
     scPlayer.play()
     console.log('playing')
 })
 
 let pauseButton = document.getElementById('pause')
-Jukebox.prototype.pause = pauseButton.addEventListener('click', function(){
+jukebox.pause = pauseButton.addEventListener('click', function(){
         scPlayer.pause()
         console.log('pausing')
 })
 
 
-var jukebox = new Jukebox()
 
