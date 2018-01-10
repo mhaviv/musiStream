@@ -14,7 +14,7 @@ let scPlayer
 
 // Intializing the Sound Cloud API
 SC.initialize({
-    client_id: 'fd4e76fc67798bfa742089ed619084a6'
+    client_id: '342b8a7af638944906dcdb46f9d56d98'
 });
 
 function Jukebox(tracks, currentSong){
