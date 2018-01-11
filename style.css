@@ -7,7 +7,7 @@ body {
 }
 
 #bgImg {
-	background-image: url(images/musiStreamB2.png);
+	background-image: url(https://s3.amazonaws.com/randomimages123/MusiStreamB2.png);
 	position: absolute;
     z-index: -5;
     top: 0;
