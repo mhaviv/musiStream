@@ -1,0 +1,22 @@
+{
+  "name": "musistream",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhaviv/musiStream.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mhaviv/musiStream/issues"
+  },
+  "homepage": "https://github.com/mhaviv/musiStream#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
