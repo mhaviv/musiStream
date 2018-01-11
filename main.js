@@ -12,9 +12,12 @@
 let imageContainer = document.getElementById('image-container');
 let scPlayer
 
+
 // Intializing the Sound Cloud API
 SC.initialize({
-    client_id: '342b8a7af638944906dcdb46f9d56d98'
+    // client_id: '342b8a7af638944906dcdb46f9d56d98'
+    // client_id: 'fd4e76fc67798bfa742089ed619084a6'
+    client_id: '83f67039ae0c3790030d256cb9029678'
 });
 
 function Jukebox(tracks, currentSong){
@@ -48,7 +51,6 @@ Jukebox.prototype.createTracks = function(tracks) {
         img.trackInfo = tracks[i];
         a.setAttribute('href', '#');
         a.append(img);
-        // imageContainer.append(a);
         imageContainer.appendChild(a);
     }
 
@@ -66,9 +68,10 @@ Jukebox.prototype.createTracks = function(tracks) {
 Jukebox.prototype.displaySong = function(song) {
 
     let chosenImage = song.artwork_url || song.user.avatar_url;
+    console.log(chosenImage)
     document.getElementById('songTitle').innerHTML="<a href=" + song.permalink_url + " target='_blank'>"+ song.title + "</a>"
     document.getElementById('artistLink').innerHTML="<a href=" + song.user.permalink_url + " target='_blank'>"+ song.user.permalink + "</a>"
-    document.getElementById('songImage').innerHTML="src", chosenImage
+    document.getElementById('songImage').src=chosenImage
     document.getElementById('songGenre').innerHTML=song.genre
     document.getElementById('songDescription').innerHTML=song.description
 }
