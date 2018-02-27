@@ -1,5 +1,4 @@
 [![GitHub top language](https://img.shields.io/github/languages/top/mhaviv/musiStream.svg?colorB=EFDF70&style=plastic)](https://github.com/mhaviv/musiStream)
-[![GitHub issues](https://img.shields.io/github/issues/mhaviv/musiStream.svg?&colorB=ff0000&style=plastic)](https://github.com/mhaviv/musiStream/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/mhaviv/musiStream.svg?colorB=1FBF14&style=plastic)](https://github.com/mhaviv/musiStream/pulls)
 [![License (MIT)](https://img.shields.io/badge/license-MIT-blue.svg?style=plastic)](https://opensource.org/licenses/MIT)
 
