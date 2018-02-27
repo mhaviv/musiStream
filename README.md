@@ -37,7 +37,7 @@ $ cd musiStream
 
 ## Technology Used
 
-<img src="images/soundcloud.jpg" align="center" width="200" height="150" /><br>
+<img src="./images/soundcloud.jpg" align="center" width="200" height="150" /><br>
 
 * [SoundCloud API](https://developers.soundcloud.com/) Build applications that allow users to upload and share sounds across the web.
 <br>
